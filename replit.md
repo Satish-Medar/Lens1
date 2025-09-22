@@ -1,7 +1,7 @@
-# AquaLense API Project
+# AquaLense Project - Full Stack Groundwater Analysis Application
 
 ## Overview
-A FastAPI-based backend application for groundwater analysis with data preprocessing and AHP (Analytic Hierarchy Process) recommendations for optimal groundwater recharge structure locations.
+A full-stack groundwater analysis application with React frontend and FastAPI backend for data preprocessing and AHP (Analytic Hierarchy Process) recommendations for optimal groundwater recharge structure locations.
 
 ## Files Created
 - `data_preprocessor.py` - Main data cleaning script
@@ -37,7 +37,24 @@ A FastAPI-based backend application for groundwater analysis with data preproces
 - `GET /api/v1/recommendations` - Get top 3 AHP-ranked locations for groundwater recharge structures
 - `GET /docs` - Interactive API documentation (Swagger UI)
 
+## Project Architecture
+- **Frontend**: React with Vite (runs on port 5000)
+- **Backend**: FastAPI with uvicorn (runs on port 8000) 
+- **Data Processing**: Python pandas for CSV cleaning
+- **Analysis Engine**: AHP (Analytic Hierarchy Process) for location recommendations
+
+## Running the Application
+The application is configured with two workflows:
+1. **Frontend**: `cd frontend && npm run dev` (React app on port 5000)
+2. **Backend**: `cd backend && uvicorn app.main:app --host localhost --port 8000 --reload` (FastAPI on port 8000)
+
+## Deployment Configuration
+- **Target**: Autoscale deployment
+- **Build**: `cd frontend && npm run build`
+- **Run**: Both backend (port 8000) and frontend (port 5000) services
+
 ## Recent Changes
 - 2025-09-22: Created initial data preprocessing script with pandas-based CSV cleaning functionality
 - 2025-09-22: Fixed application startup issues - added sample input data file and configured workflow. Application now runs successfully and processes data correctly.
 - 2025-09-22: Created FastAPI backend with AHP analysis engine and REST API endpoints. Includes /district-data and /recommendations endpoints for groundwater analysis.
+- 2025-09-22: **Project Import Completed**: Successfully imported and configured full-stack application in Replit environment with both React frontend and FastAPI backend running properly.
