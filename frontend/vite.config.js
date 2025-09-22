@@ -9,5 +9,12 @@ export default defineConfig({
     port: 5000,          // Use port 5000 for frontend (required by Replit)
     strictPort: true,    // Fail if port is already in use
     allowedHosts: true,  // Allow all hosts (required for Replit)
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   },
 })
