@@ -1,0 +1,122 @@
+Act as an expert React.js developer.
+
+Your task is to create the main UI structure for the AquaLense dashboard. You will create three new component files and modify one existing file.
+
+1. First, create the following NEW files and folders with the exact content specified:
+
+New File: frontend/src/components/DashboardLayout.jsx
+
+JavaScript
+
+import React from 'react';
+import './DashboardLayout.css';
+const DashboardLayout = ({ map, chart, controls }) => {
+return (
+
+export default DashboardLayout;
+
+
+-----
+New File: frontend/src/components/DashboardLayout.css
+
+CSS
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+.dashboard-header {
+padding: 1rem 2rem;
+background-color: white;
+border-bottom: 1px solid #ddd;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.dashboard-header h1 {
+margin: 0;
+font-size: 1.5rem;
+color: #333;
+}
+
+.dashboard-main-grid {
+flex-grow: 1;
+display: grid;
+grid-template-columns: 2fr 1fr; /* 2/3 for map, 1/3 for sidebar */
+gap: 1.5rem;
+padding: 1.5rem;
+overflow: hidden;
+}
+
+.map-area, .sidebar-area {
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+padding: 1rem;
+overflow-y: auto;
+}
+
+.sidebar-area {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+
+.controls-area, .chart-area {
+padding: 1rem;
+border: 1px solid #eee;
+border-radius: 8px;
+}
+
+
+-----
+New File: frontend/src/components/MapComponent.jsx
+
+JavaScript
+
+import React from 'react';
+const MapComponent = () => {
+return (
+<div style={{ height: '100%', border: '2px dashed #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
+<h2 style={{ color: '#aaa' }}>Map Area
+
+export default MapComponent;
+
+
+-----
+New File: frontend/src/components/ChartComponent.jsx
+
+JavaScript
+
+import React from 'react';
+const ChartComponent = () => {
+return (
+<div style={{ height: '100%', border: '2px dashed #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
+<h2 style={{ color: '#aaa' }}>Chart Area
+
+export default ChartComponent;
+
+
+**2. Second, provide the code to MODIFY the following file:**
+File to Modify: frontend/src/pages/Dashboard.jsx
+
+JavaScript
+
+import React from 'react';
+import DashboardLayout from '../components/DashboardLayout';
+import MapComponent from '../components/MapComponent';
+import ChartComponent from '../components/ChartComponent';
+const Controls = () => (
+
+const Dashboard = () => {
+return (
+<DashboardLayout
+map={}
+chart={}
+controls={}
+/>
+);
+};
+
+export default Dashboard;
