@@ -5,8 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0',  // Allow connections from all hosts
-    port: 5000,       // Use port 5000 for frontend (required by Replit)
-    strictPort: true, // Fail if port is already in use
+    host: '0.0.0.0',     // Allow connections from all hosts
+    port: 5000,          // Use port 5000 for frontend (required by Replit)
+    strictPort: true,    // Fail if port is already in use
+    allowedHosts: true,  // Allow all hosts (required for Replit)
   },
 })
