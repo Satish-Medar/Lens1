@@ -26,3 +26,4 @@ A standalone Python script for cleaning water level data from CSV files. The scr
 
 ## Recent Changes
 - 2025-09-22: Created initial data preprocessing script with pandas-based CSV cleaning functionality
+- 2025-09-22: Fixed application startup issues - added sample input data file and configured workflow. Application now runs successfully and processes data correctly.

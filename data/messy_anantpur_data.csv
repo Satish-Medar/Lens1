@@ -1,0 +1,11 @@
+Date,Location,water_level_mbgl,Temperature,Notes
+2023-01-01,Anantpur Site 1,12.5,25.3,Normal reading
+2023-01-02,Anantpur Site 1,,26.1,Missing data
+2023-01-03,Anantpur Site 1,invalid,24.8,Bad sensor
+2023-01-04,Anantpur Site 1,-9999,25.5,Sensor error
+2023-01-05,Anantpur Site 1,15.2,26.0,Normal reading
+2023-01-06,Anantpur Site 2,8.7,27.2,Normal reading
+2023-01-07,Anantpur Site 2,null,25.8,Equipment failure
+2023-01-08,Anantpur Site 2,10.1,26.4,Normal reading
+2023-01-09,Anantpur Site 3,7.3,24.9,Normal reading
+2023-01-10,Anantpur Site 3,ERROR,25.1,Communication error
