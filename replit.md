@@ -13,8 +13,11 @@ A standalone Python script for cleaning water level data from CSV files. The scr
 3. The cleaned data will be saved to `data/clean_anantpur_data.csv`
 
 ## Data Cleaning Operations
-- Removes rows with missing or blank `water_level_mbgl` values
-- Removes rows with negative `water_level_mbgl` values (like -9999)
+- Auto-detects water level column (looks for 'water_level', 'depth', 'level', 'mbgl', etc.)
+- Shows available columns and which column is being used for cleaning
+- Removes rows with missing or blank water level values
+- Converts non-numeric values to numeric (handling text/mixed data)
+- Removes rows with negative water level values (like -9999)
 - Preserves all other data columns and rows
 
 ## Dependencies

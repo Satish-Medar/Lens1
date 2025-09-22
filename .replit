@@ -6,24 +6,3 @@ expertMode = true
 channel = "stable-25_05"
 
 [workflows]
-runButton = "Project"
-
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "data_processor"
-
-[[workflows.workflow]]
-name = "data_processor"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python data_preprocessor.py"
-
-[workflows.workflow.metadata]
-outputType = "console"
