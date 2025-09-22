@@ -1,0 +1,79 @@
+Act as an expert React.js developer.
+
+Your task is to restructure the boilerplate Vite React project. You will provide the complete code for several new and modified files.
+
+1. First, list the files that should be DELETED from the frontend/src/ directory:
+
+App.css
+
+index.css
+
+assets/react.svg
+
+2. Second, provide the complete code for the following NEW and MODIFIED files:
+
+File to Modify: frontend/src/main.jsx
+
+JavaScript
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css'; // We will create this new file next
+ReactDOM.createRoot(document.getElementById('root')).render(
+<React.StrictMode>
+
+</React.StrictMode>,
+);
+
+
+-----
+New File: frontend/src/index.css
+
+CSS
+
+/* A simple CSS reset and basic styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+}
+File to Modify: frontend/src/App.jsx
+
+JavaScript
+
+import React from 'react';
+import Dashboard from './pages/Dashboard';
+function App() {
+return (
+
+export default App;
+
+
+-----
+New File: frontend/src/pages/Dashboard.jsx
+
+JavaScript
+
+import React from 'react';
+const Dashboard = () => {
+return (
+
+export default Dashboard;
+
+Verification: Your "Is it working?" Test
+After the AI provides the response, carefully follow its instructions:
+
+Delete the specified files from the frontend/src/ and frontend/src/assets/ folders.
+
+Create or replace the content of the specified files with the exact code the AI provided. You will need to create the pages folder inside src for the Dashboard.jsx file.
+
+Your React development server should still be running. If not, start it again with npm run dev.
+
+Go back to your web browser at http://localhost:5173/.
+
+If everything is successful, the old welcome page with the logos will be gone. You will see a clean, simple webpage with only the text "AquaLense Dashboard".
