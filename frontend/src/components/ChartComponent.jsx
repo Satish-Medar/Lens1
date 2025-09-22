@@ -5,7 +5,7 @@ const ChartComponent = ({ data }) => {
   const stats = React.useMemo(() => {
     if (!data || data.length === 0) return null;
     
-    const waterLevels = data.map(point => point.water_level).filter(level => level != null);
+    const waterLevels = data.map(point => point.water_level_mbgl).filter(level => level != null);
     const avg = waterLevels.reduce((sum, level) => sum + level, 0) / waterLevels.length;
     const min = Math.min(...waterLevels);
     const max = Math.max(...waterLevels);
