@@ -1,0 +1,96 @@
+Act as an expert React.js developer specializing in data visualization with Mapbox and Recharts.
+
+Your task is to upgrade our existing placeholder components with real, data-driven visualizations.
+
+You will provide the complete, updated code for the following two files:
+
+File 1 to Modify: frontend/src/components/MapComponent.jsx
+
+JavaScript
+
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+// IMPORTANT: Replace this with your own Mapbox public access token
+mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+const MapComponent = ({ data, recommendations }) => {
+const mapContainer = useRef(null);
+const map = useRef(null);
+const [lng] = useState(77.6004); // Default longitude for our demo district
+const [lat] = useState(14.6819); // Default latitude
+const [zoom] = useState(10);
+
+useEffect(() => {
+if (map.current) return; // initialize map only once
+map.current = new mapboxgl.Map({
+container: mapContainer.current,
+style: 'mapbox://styles/mapbox/streets-v12',
+center: [lng, lat],
+zoom: zoom
+});
+});
+
+// Effect to add well data markers to the map
+useEffect(() => {
+if (!map.current || !data || data.length === 0) return;
+
+// Add a marker for each well station
+data.forEach(station => {
+  new mapboxgl.Marker({ color: '#007bff' })
+    .setLngLat([station.longitude, station.latitude])
+    .setPopup(new mapboxgl.Popup().setHTML(`<h6>Station: ${station.station_id}</h6><p>Water Level: ${station.water_level_mbgl} mbgl</p>`))
+    .addTo(map.current);
+});
+}, [data]); // Rerun this effect only when the data changes
+
+// Effect to add recommendation markers to the map
+useEffect(() => {
+if (!map.current || !recommendations || recommendations.length === 0) return;
+
+// Add a special marker for each recommendation
+recommendations.forEach(rec => {
+  new mapboxgl.Marker({ color: '#28a745', scale: 1.2 })
+    .setLngLat([rec.longitude, rec.latitude])
+    .setPopup(new mapboxgl.Popup().setHTML(`<h6>Recommendation!</h6><p>Station: ${rec.station_id}</p><p>Score: ${rec.ahp_score}</p>`))
+    .addTo(map.current);
+});
+}, [recommendations]);
+
+return (
+<div style={{ height: '100%', width: '100%' }}>
+<div ref={mapContainer} className="map-container" style={{ height: '100%', borderRadius: '8px' }} />
+
+export default MapComponent;
+
+
+-----
+File 2 to Modify: frontend/src/components/ChartComponent.jsx
+
+JavaScript
+
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+const ChartComponent = ({ data }) => {
+// For the demo, we'll just chart the water level of the first station
+const chartData = data
+.filter(d => d.station_id === 'ANP01')
+.map(d => ({
+// Format the date for the chart
+date: new Date(d.timestamp).toLocaleDateString(),
+'Water Level (mbgl)': d.water_level_mbgl
+}));
+
+return (
+<div style={{ height: '100%', width: '100%' }}>
+<h3 style={{ textAlign: 'center' }}>Water Level Trend (Station ANP01)
+
+<LineChart
+data={chartData}
+margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+>
+
+
+<YAxis label={{ value: 'mbgl', angle: -90, position: 'insideLeft' }} />
+
+export default ChartComponent;
