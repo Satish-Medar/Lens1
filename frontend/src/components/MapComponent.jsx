@@ -13,24 +13,82 @@ const MapComponent = ({ data, recommendations }) => {
         )}
       </div>
 
-      {/* Placeholder for actual map */}
+      {/* Interactive Map Visualization */}
       <div style={{ 
         height: 'calc(100% - 120px)', 
-        border: '2px dashed #ccc', 
-        display: 'flex', 
-        flexDirection: 'column',
-        alignItems: 'center', 
-        justifyContent: 'center', 
+        border: '1px solid #ddd', 
         borderRadius: '8px',
-        backgroundColor: '#f8f9fa'
+        backgroundColor: '#f0f8ff',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        <h4 style={{ color: '#666', margin: '0 0 10px 0' }}>Interactive Map</h4>
-        <p style={{ color: '#888', margin: 0, textAlign: 'center' }}>
-          Map visualization will show:<br/>
-          • Groundwater monitoring locations<br/>
-          • Water level data points<br/>
-          • Recommended recharge sites
-        </p>
+        <div style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: 'white' }}>
+          <strong>🗺️ Monitoring Stations Map</strong>
+        </div>
+        <div style={{ 
+          position: 'relative', 
+          height: 'calc(100% - 50px)', 
+          padding: '20px',
+          overflow: 'auto'
+        }}>
+          {data && data.length > 0 ? (
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+              gap: '10px',
+              height: '100%'
+            }}>
+              {data.slice(0, 12).map((station, index) => (
+                <div key={station.station_id || index} style={{
+                  backgroundColor: '#ffffff',
+                  border: '2px solid #007bff',
+                  borderRadius: '8px',
+                  padding: '10px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                  ':hover': { transform: 'scale(1.02)' }
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'scale(1.02)'}
+                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                >
+                  <div style={{ fontWeight: 'bold', color: '#007bff', fontSize: '12px' }}>
+                    📍 {station.station_id || `Station ${index + 1}`}
+                  </div>
+                  <div style={{ fontSize: '11px', marginTop: '5px' }}>
+                    <div>💧 {station.water_level_mbgl ? `${station.water_level_mbgl}m` : 'N/A'}</div>
+                    <div>🌡️ {station.Temperature ? `${station.Temperature}°C` : 'N/A'}</div>
+                    {station.latitude && station.longitude && (
+                      <div style={{ fontSize: '10px', color: '#666' }}>
+                        📍 {station.latitude.toFixed(3)}, {station.longitude.toFixed(3)}
+                      </div>
+                    )}
+                  </div>
+                  {recommendations && Array.isArray(recommendations) && recommendations.some(rec => rec.station_id === station.station_id) && (
+                    <div style={{ 
+                      marginTop: '5px', 
+                      fontSize: '10px', 
+                      color: '#28a745', 
+                      fontWeight: 'bold' 
+                    }}>
+                      ⭐ RECOMMENDED
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              height: '100%',
+              color: '#666'
+            }}>
+              Loading monitoring stations...
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

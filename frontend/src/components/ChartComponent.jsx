@@ -33,24 +33,134 @@ const ChartComponent = ({ data }) => {
         <p style={{ color: '#666' }}>Loading data...</p>
       )}
 
-      {/* Placeholder for actual charts */}
+      {/* Interactive Chart Visualization */}
       <div style={{ 
         height: 'calc(100% - 160px)', 
-        border: '2px dashed #ccc', 
-        display: 'flex', 
-        flexDirection: 'column',
-        alignItems: 'center', 
-        justifyContent: 'center', 
+        border: '1px solid #ddd', 
         borderRadius: '8px',
-        backgroundColor: '#f8f9fa'
+        backgroundColor: '#fafafa',
+        overflow: 'hidden'
       }}>
-        <h4 style={{ color: '#666', margin: '0 0 10px 0' }}>Data Visualization</h4>
-        <p style={{ color: '#888', margin: 0, textAlign: 'center' }}>
-          Charts will show:<br/>
-          • Water level trends<br/>
-          • Regional distribution<br/>
-          • Analysis results
-        </p>
+        <div style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: 'white' }}>
+          <strong>📊 Water Level Distribution</strong>
+        </div>
+        {stats && data ? (
+          <div style={{ padding: '15px', height: 'calc(100% - 50px)', overflow: 'auto' }}>
+            {/* Simple Bar Chart */}
+            <div style={{ marginBottom: '20px' }}>
+              <div style={{ fontSize: '12px', marginBottom: '10px', color: '#666' }}>
+                Water Levels by Station (meters below ground level)
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'end', 
+                gap: '2px', 
+                height: '120px',
+                padding: '10px',
+                backgroundColor: 'white',
+                borderRadius: '4px',
+                overflow: 'auto'
+              }}>
+                {data.slice(0, 15).map((station, index) => {
+                  const level = station.water_level_mbgl || 0;
+                  const maxLevel = Math.max(...data.map(s => s.water_level_mbgl || 0));
+                  const height = maxLevel > 0 ? (level / maxLevel) * 80 : 10;
+                  
+                  return (
+                    <div key={index} style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center',
+                      minWidth: '15px'
+                    }}>
+                      <div style={{
+                        width: '12px',
+                        height: `${height}px`,
+                        backgroundColor: level > stats.avg ? '#dc3545' : '#28a745',
+                        borderRadius: '2px 2px 0 0',
+                        transition: 'height 0.3s'
+                      }} title={`${station.station_id}: ${level}m`} />
+                      <div style={{ 
+                        fontSize: '8px', 
+                        color: '#666', 
+                        transform: 'rotate(-45deg)',
+                        marginTop: '5px',
+                        width: '20px'
+                      }}>
+                        {(station.station_id || `S${index + 1}`).slice(-3)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ fontSize: '10px', color: '#666', marginTop: '5px' }}>
+                🟢 Below Average • 🔴 Above Average
+              </div>
+            </div>
+            
+            {/* Distribution Chart */}
+            <div>
+              <div style={{ fontSize: '12px', marginBottom: '10px', color: '#666' }}>
+                Data Distribution
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                gap: '10px',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ 
+                  flex: 1, 
+                  minWidth: '100px',
+                  padding: '8px', 
+                  backgroundColor: '#e8f5e8', 
+                  borderRadius: '4px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#28a745' }}>
+                    {stats.min}m
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#666' }}>Minimum</div>
+                </div>
+                <div style={{ 
+                  flex: 1, 
+                  minWidth: '100px',
+                  padding: '8px', 
+                  backgroundColor: '#e3f2fd', 
+                  borderRadius: '4px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#1976d2' }}>
+                    {stats.avg}m
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#666' }}>Average</div>
+                </div>
+                <div style={{ 
+                  flex: 1, 
+                  minWidth: '100px',
+                  padding: '8px', 
+                  backgroundColor: '#ffebee', 
+                  borderRadius: '4px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#d32f2f' }}>
+                    {stats.max}m
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#666' }}>Maximum</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            height: '100%',
+            color: '#666'
+          }}>
+            Loading chart data...
+          </div>
+        )}
       </div>
     </div>
   );
